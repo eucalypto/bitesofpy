@@ -20,3 +20,14 @@ def slice_and_dice(text: str = text) -> list:
     """Get a list of words from the passed in text.
        See the Bite description for step by step instructions"""
     results = []
+    lines = text.strip().splitlines()
+    for line in lines:
+        line = line.strip()
+        if line[0].islower():
+            results.append(
+                line.split()[-1].rstrip(".!")
+            )
+    return results
+
+if __name__ == '__main__':
+    print(slice_and_dice())
