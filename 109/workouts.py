@@ -27,4 +27,22 @@ def get_workout_motd(day):
 
        Trivia: /etc/motd is a file on Unix-like systems that contains
        a 'message of the day'"""
-    pass
+    # day sanitation
+    day = day.capitalize()
+
+    if day not in workout_schedule.keys():
+        raise KeyError("The given day is not part of the schedule")
+
+    # else: day is in schedule
+    workout = workout_schedule[day]
+    if workout == 'Rest':
+        return chill
+    else:
+        return go_train.format(workout)
+
+
+if __name__ == '__main__':
+    print(get_workout_motd("monday"))
+    print(get_workout_motd("TUESDAY"))
+    print(get_workout_motd("sunDAY"))
+    # print(get_workout_motd("sunDAYiaer"))
