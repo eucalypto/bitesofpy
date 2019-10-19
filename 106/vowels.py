@@ -1,3 +1,5 @@
+import re
+
 text = """
 The Zen of Python, by Tim Peters
 
@@ -38,15 +40,11 @@ def strip_vowels(text: str) -> (str, int):
        The str/int types in the function defintion above are part
        of Python's new type hinting:
        https://docs.python.org/3/library/typing.html"""
-    text = list(text)
-    count = 0
-    for index, character in enumerate(text):
-        if character.lower() in vowels:
-            text[index] = "*"
-            count += 1
-
-    text = "".join(text)
-    return (text, count)
+    find = r"[aeiouAEIOU]"
+    regex = re.compile(find)
+    count = len(regex.findall(text))
+    output = regex.sub("*", text)
+    return output, count
 
 
 
