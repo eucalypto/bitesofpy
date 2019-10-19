@@ -40,10 +40,9 @@ def strip_vowels(text: str) -> (str, int):
        The str/int types in the function defintion above are part
        of Python's new type hinting:
        https://docs.python.org/3/library/typing.html"""
-    find = r"[aeiou]"
-    regex = re.compile(find, flags=re.IGNORECASE)
-    count = len(regex.findall(text))
-    output = regex.sub("*", text)
+    find_vowels = re.compile(r"[aeiou]", flags=re.IGNORECASE)
+    count = len(find_vowels.findall(text))
+    output = find_vowels.sub("*", text)
     return output, count
 
 
