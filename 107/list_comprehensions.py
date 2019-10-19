@@ -4,4 +4,4 @@ def filter_positive_even_numbers(numbers):
        list comprehension."""
     return [number for number in numbers
             if number > 0
-            if number % 2 == 0]
+            and number % 2 == 0]
