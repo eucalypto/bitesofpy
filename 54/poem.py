@@ -21,6 +21,19 @@ def print_hanging_indents(poem: str):
     print(formatted_poem)
 
 
+# This is the official solution from the pybites website
+# I like it much better than my solution
+# It splits the poem into parts, which is a way more logical way than
+# split it into lines right away
+def print_hanging_indents_from_pybites(poem):
+    """You can use textwrap's fill but this worked better for us"""
+    for part in poem.split("\n\n"):
+        lines = [line.strip() for line in part.splitlines()
+                 if line.strip()]
+        print(lines[0])
+        for line in lines[1:]:
+            print(' ' * INDENTS + line)
+
 
 if __name__ == '__main__':
     shakespeare_unformatted = """
