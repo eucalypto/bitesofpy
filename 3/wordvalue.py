@@ -14,14 +14,24 @@ LETTER_SCORES = {letter: score for score, letters in scrabble_scores
 
 def load_words():
     """Load the words dictionary (DICTIONARY constant) into a list and return it"""
-    pass
+    lines = []
+    with open(DICTIONARY, mode="r") as file:
+        lines = file.readlines()
+    return [line.strip()
+            for line in lines]
 
 
 def calc_word_value(word):
     """Given a word calculate its value using the LETTER_SCORES dict"""
-    pass
+    return sum([LETTER_SCORES[letter]
+                for letter in word.upper()
+                if letter in LETTER_SCORES.keys()])
 
 
 def max_word_value(words):
     """Given a list of words calculate the word with the maximum value and return it"""
-    pass
+    return max(words, key=calc_word_value)
+
+
+if __name__ == '__main__':
+    print(calc_word_value("a"))
