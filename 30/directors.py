@@ -22,7 +22,11 @@ def get_movies_by_director():
     """Extracts all movies from csv and stores them in a dict,
     where keys are directors, and values are a list of movies,
     use the defined Movie namedtuple"""
-    pass
+    with open(local) as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            print(row)
+
 
 
 def calc_mean_score(movies):
@@ -37,3 +41,7 @@ def get_average_scores(directors):
        score in descending order. Only take directors into account
        with >= MIN_MOVIES"""
     pass
+
+
+if __name__ == '__main__':
+    get_movies_by_director()
