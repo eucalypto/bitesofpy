@@ -22,11 +22,21 @@ def get_movies_by_director():
     """Extracts all movies from csv and stores them in a dict,
     where keys are directors, and values are a list of movies,
     use the defined Movie namedtuple"""
+    movies_by_director = {}
     with open(local) as csvfile:
         reader = csv.DictReader(csvfile)
-        for row in reader:
-            print(row)
-
+        for entry in reader:
+            director = entry.get("director_name")
+            movie = Movie(entry.get("movie_title").strip(),
+                          entry.get("title_year"),
+                          entry.get("imdb_score"))
+            if director in movies_by_director.keys():
+                # update movies
+                movies_by_director[director].append(movie)
+            else:
+                # Make new entry for director
+                movies_by_director[director] = [movie]
+    return movies_by_director
 
 
 def calc_mean_score(movies):
@@ -44,4 +54,4 @@ def get_average_scores(directors):
 
 
 if __name__ == '__main__':
-    get_movies_by_director()
+    print(get_movies_by_director())
