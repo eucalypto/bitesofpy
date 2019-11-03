@@ -27,9 +27,15 @@ def get_movies_by_director():
         reader = csv.DictReader(csvfile)
         for entry in reader:
             director = entry.get("director_name")
+            try:
+                year = int(entry.get("title_year"))
+            except ValueError:
+                year = 0
             movie = Movie(entry.get("movie_title").strip(),
-                          entry.get("title_year"),
-                          entry.get("imdb_score"))
+                          year,
+                          float(entry.get("imdb_score")))
+            if movie.year < 1960:  # discard movies older than 1960
+                continue
             if director in movies_by_director.keys():
                 # update movies
                 movies_by_director[director].append(movie)
@@ -42,7 +48,7 @@ def get_movies_by_director():
 def calc_mean_score(movies):
     """Helper method to calculate mean of list of Movie namedtuples,
        round the mean to 1 decimal place"""
-    scores = [float(movie.score) for movie in movies]
+    scores = [movie.score for movie in movies]
     average = sum(scores) / len(scores)
     return round(average, ndigits=1)
 
@@ -53,18 +59,19 @@ def get_average_scores(directors: dict):
        score in descending order. Only take directors into account
        with >= MIN_MOVIES"""
     director_scores = [(director, calc_mean_score(movies))
-                 for director, movies in directors.items()
-                 if len(movies) >= MIN_MOVIES]
+                       for director, movies in directors.items()
+                       if len(movies) >= MIN_MOVIES]
     director_scores.sort(key=lambda entry: entry[1], reverse=True)
     return director_scores
 
 
 if __name__ == '__main__':
     movies = get_movies_by_director()
-    # print(movies)
+    years = [movie.year for movie_list in movies.values() for movie in movie_list]
+    years.sort()
+    print(years)
     nolan_movies = movies.get("Christopher Nolan")
     print(nolan_movies)
     print(calc_mean_score(nolan_movies))
     average_scores = get_average_scores(movies)
     print(average_scores)
-
