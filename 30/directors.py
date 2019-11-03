@@ -65,7 +65,7 @@ def get_average_scores(directors: dict):
     return director_scores
 
 
-if __name__ == '__main__':
+def my_test():
     movies = get_movies_by_director()
     years = [movie.year for movie_list in movies.values() for movie in movie_list]
     years.sort()
@@ -75,3 +75,7 @@ if __name__ == '__main__':
     print(calc_mean_score(nolan_movies))
     average_scores = get_average_scores(movies)
     print(average_scores)
+
+
+if __name__ == '__main__':
+    my_test()
