@@ -16,12 +16,13 @@ users, popular_challenges = Counter(), Counter()
 Stats = namedtuple('Stats', 'user challenge')
 
 
-# code
+#  code
 
-def gen_files():
-    """Return a generator of dir names reading in tempfile
+def get_submissions_from_file(file_=tempfile):
+    """Return a generator of (bite, user) submissions
+       read from file_
 
-       tempfile has this format:
+       file_ is assumed to have this format:
 
        challenge<int>/file_or_dir<str>,is_dir<bool>
        03/rss.xml,False
@@ -32,7 +33,15 @@ def gen_files():
 
        -> use last column to filter out directories (= True)
     """
-    pass
+    with open(file_) as file:
+        lines = file.readlines()
+
+    for line in lines:
+        longname, is_directory = line.rstrip("\n").split(",")
+        if not is_directory == "True":
+            continue
+        bite, user = longname.split("/")
+        yield bite, user
 
 
 def diehard_pybites():
@@ -42,4 +51,18 @@ def diehard_pybites():
        Calling this function on the dataset (held tempfile) should return:
        Stats(user='clamytoe', challenge=('01', 7))
     """
-    pass
+    for bite, user in get_submissions_from_file():
+        if user in IGNORE:
+            continue
+        users.update([user])
+        popular_challenges.update([bite])
+
+    return Stats(user=users.most_common(1)[0][0],
+                 challenge=popular_challenges.most_common(1)[0]
+                 )
+
+
+def test_run():
+    for submission in get_submissions_from_file():
+        print(submission)
+    print(diehard_pybites())
