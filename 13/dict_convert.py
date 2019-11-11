@@ -1,6 +1,7 @@
 from collections import namedtuple
 from datetime import datetime
 import json
+from typing import NamedTuple
 
 blog = dict(name='PyBites',
             founders=('Julian', 'Bob'),
@@ -11,15 +12,15 @@ blog = dict(name='PyBites',
 
 # define namedtuple here
 
-blog_nt = namedtuple("Blog", "name, founders, started, tags, location, site")
+Blog = namedtuple("Blog", blog.keys())
 
 
-def dict2nt(dict_):
-    # return blog_nt._make(blog.values())
-    return blog_nt(**blog)
+def dict2nt(dict_: dict):
+    # return Blog._make(blog.values())
+    return Blog(**blog)
 
 
-def nt2json(nt: blog_nt):
+def nt2json(nt: NamedTuple):
     # Without the following default=str, you get the error:
     #   TypeError: Object of type datetime is not JSON serializable
     # default takes a default conversion function for objects that
