@@ -34,13 +34,14 @@ class Promo:
         :raise NoBitesAvailable
             if there are no not-done bites
         """
-        available_bites = [bite
-                           for bite in BITES.keys()
-                           if bite not in self.bites_done]
-        if not available_bites:  # if available_bites empty
+        try:
+            return random.choice([bite
+                                  for bite in BITES.keys()
+                                  if bite not in self.bites_done])
+        except IndexError:
+            # random.choice() raises IndexError if the argument is
+            # empty. So we don't have to check it ourselves. 😛
             raise NoBitesAvailable
-
-        return random.choice(available_bites)
 
     def new_bite(self):
         """Returns new random bite and updates done bites"""
