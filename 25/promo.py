@@ -28,7 +28,27 @@ class Promo:
         self.bites_done = bites_done
 
     def _pick_random_bite(self):
-        pass
+        """
+        Return random bite that is not done yet
+
+        :raise NoBitesAvailable
+            if there are no not-done bites
+        """
+        available_bites = [bite
+                           for bite in BITES.keys()
+                           if bite not in self.bites_done]
+        if not available_bites:  # if available_bites empty
+            raise NoBitesAvailable
+
+        return random.choice(available_bites)
 
     def new_bite(self):
-        pass
+        """Returns new random bite and updates done bites"""
+        next_bite = self._pick_random_bite()
+        self.bites_done.add(next_bite)
+        return next_bite
+
+
+if __name__ == '__main__':
+    promo = Promo()
+    print(promo._pick_random_bite())
