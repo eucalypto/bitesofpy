@@ -37,16 +37,14 @@ def get_single_comedy(movies):
 
 def get_movie_most_nominations(movies):
     # TODO: rewrite with max(movies, key=nominations)
-    movie_index = -1
-    movie_nominations = -1
-    for index, movie in enumerate(movies):
-        awards_str = movie["Awards"]
-        nominations = int(re.findall(r"([0-9]*) nominations\.$",
-                                     awards_str)[0])
-        if nominations > movie_nominations:
-            movie_index = index
-            movie_nominations = nominations
-    return movies[movie_index]["Title"]
+    most_nominations = max(movies, key=get_nominations)
+    return most_nominations["Title"]
+
+
+def get_nominations(movie: dict) -> int:
+    """Return number of nominations of movie"""
+    return int(re.findall(r"([0-9]*) nominations\.$",
+                          movie["Awards"])[0])
 
 
 def get_movie_longest_runtime(movies):
@@ -55,17 +53,18 @@ def get_movie_longest_runtime(movies):
 
 
 def get_runtime(movie: dict) -> int:
+    """Return runtime of movie in minutes"""
     runtime_str = movie["Runtime"]
-    return int(
-        re.findall(r"([0-9]*) min", runtime_str)[0]
-    )
+    return int(re.findall(r"([0-9]*) min",
+                          runtime_str)[0])
 
 
 if __name__ == '__main__':
     movies = get_movie_data()
     # print(movies)
-    # for movie in movies:
-    #     print(movie["Title"], movie["Runtime"])
+    for movie in movies:
+        # print(movie["Title"], movie["Runtime"])
+        print(movie["Title"], movie["Awards"])
     # print(get_single_comedy(movies))
     # print(get_movie_most_nominations(movies))
-    print(get_movie_longest_runtime(movies))
+    # print(get_movie_longest_runtime(movies))

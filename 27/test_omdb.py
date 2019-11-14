@@ -1,7 +1,7 @@
 import pytest
 from omdb import (get_movie_data, get_single_comedy,
                   get_movie_most_nominations, get_movie_longest_runtime,
-                  get_runtime)
+                  get_runtime, get_nominations)
 
 movies = get_movie_data()
 
@@ -24,3 +24,11 @@ def test_data_analysis():
 )
 def test_get_runtime(movie, expected_runtime):
     assert get_runtime(movie) == expected_runtime
+
+
+@pytest.mark.parametrize(
+    "movie, expected_nominations",
+    zip(movies, [11, 6, 32, 13, 10])
+)
+def test_get_nominations(movie, expected_nominations):
+    assert get_nominations(movie) == expected_nominations
