@@ -25,7 +25,6 @@ def get_movie_data(files=files):
         with open(file_name) as file:
             load = json.load(file)
         movies.append(load)
-
     return movies
 
 
@@ -36,7 +35,6 @@ def get_single_comedy(movies):
 
 
 def get_movie_most_nominations(movies):
-    # TODO: rewrite with max(movies, key=nominations)
     most_nominations = max(movies, key=get_nominations)
     return most_nominations["Title"]
 
