@@ -1,3 +1,8 @@
+## Example json file contnent
+
+see `bladerunner2049.json`
+
+
 ## [Bite 27. Parse omdb movie json data](https://codechalleng.es/bites/27/)
 
 Good luck and please share you code in the Bite forums upon completion.
