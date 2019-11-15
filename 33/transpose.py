@@ -17,31 +17,34 @@ def transpose(data):
     Out: [('Bob', 'Julian'), (60, 221), (60, 34), (56, 78)]
     """
     if type(data) is dict:
-        months = (month for month, count in data.items())
-        counts = (count for month, count in data.items())
-        return [months, counts]
-    elif type(data) is list:
-        return [[member[index] for member in data]
-                for index in range(len(data[0]))]
+        # Convert dict entries into tuples
+        data = data.items()
+
+    return zip(*data)
 
 
 def testing():
     mydict = {'2017-8': 19, '2017-9': 13}
     enumerate(mydict)
+    # for i in zip(*mydict.items()):
+    #     print(i)
+    print(list(zip(*mydict.items())))
 
     Member = namedtuple("Member", "name, since, karma, bitecoins")
     gandalf = Member("Gandalf", "1319-03", 13_332, 1000)
     print(gandalf)
-    print(gandalf._fields)
+    # print(gandalf._fields)
     print(gandalf[1])
     print(len(gandalf))
     # print(enumerate(gandalf))
+    print(list(zip(gandalf, gandalf)))
 
     print(transpose([gandalf]))
 
-    for item in transpose([gandalf]):
-        for data in item:
-            print(data)
+    # for item in transpose([gandalf]):
+    #     for data in item:
+    #         print(data)
+
 
 if __name__ == '__main__':
     testing()
