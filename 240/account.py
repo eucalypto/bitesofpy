@@ -4,10 +4,10 @@ from functools import total_ordering
 
 @total_ordering
 class Account:
-    'A simple account class'
+    """A simple account class"""
 
     def __init__(self, owner, amount=0):
-        'This is the constructor that lets us create objects from this class'
+        """This is the constructor that lets us create objects from this class"""
         self.owner = owner
         self.amount = amount
         self._transactions = []

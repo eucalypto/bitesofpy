@@ -1,9 +1,6 @@
 ## [Bite 240. Write tests for an Account class](https://codechalleng.es/bites/240/)
 
-Good luck and please share you code in the Bite forums upon completion.
+How to run the mutpy test?
 
-For questions use [our Slack](https://pybites.slack.com/archives/C6BGDQQ3B) (no spoilers please).
-
-Check out our full catalogue of Bites of Py [here](https://codechalleng.es/bites/catalogue).
-
-Enjoy and keep calm and code in Python!
+`(venv) viktor@viktor-pc:~/code/bitesofpy$ mut.py --target bite_240/account.py --unit-test bite_240/test_account.py --runner pytest --coverage -m
+`
