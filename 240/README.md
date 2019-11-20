@@ -2,5 +2,5 @@
 
 How to run the mutpy test?
 
-`(venv) viktor@viktor-pc:~/code/bitesofpy$ mut.py --target bite_240/account.py --unit-test bite_240/test_account.py --runner pytest --coverage -m
+`(venv) viktor@viktor-pc:~/code/bitesofpy/240$ mut.py --target account.py --unit-test test_account.py --runner pytest --coverage -m
 `
