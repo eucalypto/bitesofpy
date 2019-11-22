@@ -11,6 +11,17 @@ def validate_password(password):
     if len(password) > 12:
         return False
 
+    # This is an alternative for characters that need only one appearance.
+    # The advantage: the generator stops as soon as it gets a positive result.
+    # The disadvantage: it's hard to extend to require two appearances
+    #
+    # if not any(char in PUNCTUATION_CHARS for char in password):
+    #     return False
+    # if not any(char in string.digits for char in password):
+    #     return False
+    # if not any(char in string.ascii_uppercase for char in password):
+    #     return False
+
     digits = 0
     lower = 0
     upper = 0
@@ -37,7 +48,3 @@ def validate_password(password):
 
     used_passwords.add(password)
     return True
-
-
-
-
