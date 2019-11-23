@@ -32,3 +32,19 @@ def get_similarities(tags=None):
     """Should return a list of similar tag pairs (tuples)"""
     tags = tags or _get_tags()
     # do your thing ...
+    tags_remaining = {tag: True for tag in tags}
+    pairs = set()
+    for romeo in tags_remaining:
+        for juliet in tags_remaining:
+            if juliet == romeo:
+                continue
+            if SequenceMatcher(lambda x: x == " ", romeo, juliet).ratio() > 0.95:
+                pairs.add(tuple(sorted([romeo, juliet])))
+                tags_remaining[romeo] = False
+                tags_remaining[juliet] = False
+
+    return pairs
+
+
+if __name__ == '__main__':
+    print(get_similarities())
