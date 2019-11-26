@@ -1,14 +1,29 @@
 import argparse
+import operator
+from functools import reduce
+
 
 def calculator(operation, numbers):
-    """TODO 1:
+    """DONE 1:
        Create a calculator that takes an operation and list of numbers.
        Perform the operation returning the result rounded to 2 decimals"""
-    pass
+
+    numbers = (float(number) for number in numbers)
+
+    if operation == "add":
+        return round(reduce(operator.add, numbers),
+                     ndigits=2)
+    if operation == "sub":
+        return round(reduce(operator.sub, numbers),
+                     ndigits=2,)
+    if operation == "mul":
+        return round(reduce(operator.mul, numbers), ndigits=2)
+    if operation == "div":
+        return round(reduce(operator.truediv, numbers), ndigits=2)
 
 
 def create_parser():
-    """TODO 2:
+    """DONE 2:
        Create an ArgumentParser object:
        - have one operation argument,
        - have one or more integers that can be operated on.
@@ -16,7 +31,17 @@ def create_parser():
 
        Note that type=float times out here so do the casting in the calculator
        function above!"""
-    pass
+    parser = argparse.ArgumentParser(prog="A simple calculator")
+    parser.add_argument("-a", "--add",
+                        help="Sums numbers",
+                        nargs='+')
+    parser.add_argument("-s", "--sub", help="Subtracts numbers",
+                        nargs='+')
+    parser.add_argument("-m", "--mul", help="Multiplies numbers",
+                        nargs='+')
+    parser.add_argument("-d", "--div", help="Divides numbers",
+                        nargs='+')
+    return parser
 
 
 def call_calculator(args=None, stdout=False):
