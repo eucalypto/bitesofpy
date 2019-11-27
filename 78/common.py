@@ -7,7 +7,7 @@ def common_languages(programmers: dict):
     language_sets = (set(languages)
                      for languages in programmers.values())
 
-    return reduce(set.intersection, language_sets)
+    return set.intersection(*language_sets)
 
 
 if __name__ == '__main__':
