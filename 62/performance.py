@@ -1,3 +1,4 @@
+import collections
 from functools import wraps
 from time import time
 from typing import Deque, List, Set, Generator
@@ -28,7 +29,7 @@ def contains(sequence: List[int], num: int) -> bool:
 
 @timing
 def contains_fast(sequence: Set[int], num: int) -> bool:
-    pass
+    return num in sequence
 
 
 @timing
@@ -38,7 +39,19 @@ def ordered_list_max(sequence: List[int]) -> int:
 
 @timing
 def ordered_list_max_fast(sequence: List[int]) -> int:
-    pass
+    # List.sort() is apparently faster than max()
+    # https://stackoverflow.com/questions/35014951/why-is-max-slower-than-sort
+    # max() uses generic iteration and thus can be used with many
+    # structures.
+    # List.sort() does know that the underlying data is a list and thus
+    # leverages this as a speed advantage.
+    sequence.sort()
+
+    # return sorted(sequence)[-1]
+    # ↑ This is a bit slower than max() according to the test. Probably
+    # because it has to generate a new list.
+
+    return sequence[-1]
 
 
 @timing
@@ -47,11 +60,13 @@ def list_concat(sequence: List[str]) -> str:
     for i in sequence:
         bigstr += str(i)
     return bigstr
+    # This is slow because strings are not mutable and each iteration
+    # a new string object has to be created
 
 
 @timing
 def list_concat_fast(sequence: List[str]) -> str:
-    pass
+    return "".join(sequence)
 
 
 @timing
@@ -64,7 +79,13 @@ def list_inserts(n: int) -> List[int]:
 
 @timing
 def list_inserts_fast(n: int) -> Deque[int]:
-    pass
+    # The deque (or double ended queue) is great for manipulations at both
+    # ends. If you want to add an element in the beginning of a List, Python
+    # shifts all later elements by one index. This is very inefficient.
+    deque = collections.deque()
+    for i in range(n):
+        deque.insert(0, i)
+    return deque
 
 
 @timing
@@ -76,5 +97,9 @@ def list_creation(n: int) -> List[int]:
 
 
 @timing
-def list_creation_fast(n: int) -> Generator[int]:
-    pass
+def list_creation_fast(n: int) -> Generator[int, None, None]:
+    return (i for i in range(n))
+    # return range(n)
+    # ^ this also passes the test since range() is a "sort of generator"
+    # But the typing does not recognize it. The type of range is "range"
+    # and the type check complains that it is not a generator.
