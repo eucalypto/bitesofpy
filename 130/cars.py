@@ -14,10 +14,25 @@ with requests.Session() as s:
 def most_prolific_automaker(year):
     """Given year 'year' return the automaker that released
        the highest number of new car models"""
-    pass
+    models_of_year = (entry['automaker'] for entry in data if entry['year'] == year)
+    return Counter(models_of_year).most_common(1)[0][0]
 
 
 def get_models(automaker, year):
     """Filter cars 'data' by 'automaker' and 'year',
        return a set of models (a 'set' to avoid duplicate models)"""
-    pass
+    return set(entry['model']
+               for entry in data
+               if entry['automaker'] == automaker
+               if entry['year'] == year)
+
+
+def test():
+    # for i in range(10):
+    #     print(data[i])
+    # print(most_prolific_automaker(2002))
+    print(get_models('Volkswagen', 2008))
+
+
+if __name__ == '__main__':
+    test()
