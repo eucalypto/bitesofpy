@@ -30,10 +30,13 @@ tweets = [
 def filter_tweets_on_polarity(tweets, keep_positive=True):
     """Filter the tweets by polarity score, receives keep_positive bool which
        determines what to keep. Returns a list of filtered tweets."""
-    pass
+    def keeping(tweet):
+        return tweet.polarity > 0 if keep_positive else tweet.polarity < 0
+    return [tweet for tweet in tweets
+            if keeping(tweet)]
 
 
 def order_tweets_by_polarity(tweets, positive_highest=True):
     """Sort the tweets by polarity, receives positive_highest which determines
        the order. Returns a list of ordered tweets."""
-   pass
+    return sorted(tweets, key=lambda tw: tw.polarity, reverse=positive_highest)
