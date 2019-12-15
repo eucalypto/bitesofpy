@@ -16,7 +16,19 @@ TIME_OFFSETS = (
 )
 
 
-def pretty_date(date):
+def pretty_date(date: datetime):
     """Receives a datetime object and converts/returns a readable string
        using TIME_OFFSETS"""
-    pass
+    if type(date) != datetime:
+        raise ValueError
+    if date > NOW:
+        raise ValueError
+
+    difference = (NOW - date).total_seconds()
+    for time_offset in TIME_OFFSETS:
+        if difference < time_offset.offset:
+            from_seconds = int(difference) if time_offset.divider is None \
+                           else int(difference / time_offset.divider)
+            return time_offset.date_str.format(from_seconds)
+    return date.strftime('%m/%d/%y')
+
