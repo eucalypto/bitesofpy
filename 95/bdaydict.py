@@ -11,8 +11,7 @@ class BirthdayDict(dict):
         self.update(*args, **kwargs)
 
     def __setitem__(self, name, birthday: date):
-        def without_year(date: date):
-            return date.strftime("%m %d")
-        if without_year(birthday) in [without_year(birthday_) for birthday_ in self.values()]:
+        birthdays = [(birthday_.day, birthday_.month) for birthday_ in self.values()]
+        if (birthday.day, birthday.month) in birthdays:
             print(MSG.format(name))
         dict.__setitem__(self, name, birthday)
