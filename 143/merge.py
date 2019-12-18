@@ -10,4 +10,12 @@ def get_person_age(name):
        If name in > 1 dict, return the match of the group with
        greatest N (so group3 > group2 > group1)
     """
-    pass
+    dicts = [group3, group2, group1]
+
+    if type(name) != str:
+        return NOT_FOUND
+
+    for dictionary in dicts:
+        if name.lower() in dictionary:
+            return dictionary[name.lower()]
+    return NOT_FOUND
