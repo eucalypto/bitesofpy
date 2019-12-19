@@ -9,7 +9,9 @@ def traffic_light():
     """Returns an itertools.cycle iterator that
        when iterated over returns State namedtuples
        as shown in the Bite's description"""
-    pass
+    return cycle([State('red', 'Stop', 2),
+                  State('green', 'Go', 2),
+                  State('amber', 'Caution', 0.5)])
 
 
 if __name__ == '__main__':
