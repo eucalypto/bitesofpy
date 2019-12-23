@@ -1,2 +1,8 @@
+from itertools import cycle
+import string
+
+
 def sequence_generator():
-    pass
+    return cycle(i
+                 for tuple_ in zip(range(1, 27), string.ascii_uppercase)
+                 for i in tuple_)
