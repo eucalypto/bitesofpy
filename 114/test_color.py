@@ -41,7 +41,7 @@ def test_color_rgb2hex_bad_value(rgb):
         Color.rgb2hex(rgb)
 
 
-@pytest.mark.parametrize("hex, expected", [
+@pytest.mark.parametrize("hex,    expected", [
     ("#ffffff", (255, 255, 255)),
     ("#000000", (0, 0, 0)),
     ("#0000ff", (0, 0, 255)),
