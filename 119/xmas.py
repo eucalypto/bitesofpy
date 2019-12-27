@@ -5,4 +5,16 @@ def generate_xmas_tree(rows=10):
          *
         ***
        *****"""
-    pass
+    max_with = rows*2-1
+    each_row = [((row*2-1) * '*').center(max_with)
+                for row in range(1, rows+1)]
+
+    return '\n'.join(each_row)
+
+
+def test():
+    print(generate_xmas_tree(4).split('\n'))
+    print(generate_xmas_tree())
+
+if __name__ == '__main__':
+    test()
