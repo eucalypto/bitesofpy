@@ -12,4 +12,18 @@ def get_ordinal_suffix(number):
          pronounced one hundred [and] twelfth)
        - th is used for all other numbers (e.g. 9th, pronounced ninth).
        """
-    pass
+    # Extra case for teens
+    if 10 < (number % 100) < 20:
+        return f'{number}th'
+
+    last_digit = number % 10
+    suffix = ''
+    if last_digit == 1:
+        suffix = 'st'
+    elif last_digit == 2:
+        suffix = 'nd'
+    elif last_digit == 3:
+        suffix = 'rd'
+    else:
+        suffix = 'th'
+    return f'{number}{suffix}'
