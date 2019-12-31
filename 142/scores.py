@@ -16,7 +16,15 @@ def calculate_score(scores):
 
        Returns int of the sum of the scores.
     """
-    pass
+    result = 0
+    for score in scores:
+        if type(score) != int:
+            raise ValueError
+        if not 1 <= score <= 6:
+            raise ValueError
+        elif score >= MIN_SCORE:
+            result += score
+    return result
 
 
 def get_winner(players):
@@ -37,4 +45,9 @@ def get_winner(players):
        output:
          Player(name='player 3', scores=[4, 5, 1, 2])
     """
-    pass
+    # check scores length
+    len1 = len(players[0].scores)
+    if any(len(player.scores) != len1 for player in players):
+        raise ValueError
+    
+    return max(players, key=lambda p: calculate_score(p.scores))
