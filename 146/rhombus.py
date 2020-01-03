@@ -16,4 +16,7 @@ def gen_rhombus(width):
          ***
           *
     """
-    pass
+    for stars in range(1, width+1, 2):
+        yield ('*' * stars).center(width)
+    for stars in range(width-2, 0, -2):
+        yield ('*' * stars).center(width)
