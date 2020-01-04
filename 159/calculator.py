@@ -11,4 +11,18 @@ def simple_calculator(calculation):
        Make sure you convert both numbers to ints.
        If bad data is passed in, raise a ValueError.
     """
-    pass
+    num1, operation, num2 = calculation.split()
+    if operation == '+':
+        return int(num1) + int(num2)
+    elif operation == '-':
+        return int(num1) - int(num2)
+    elif operation == '*':
+        return int(num1) * int(num2)
+    elif operation == '/':
+        try:
+            return int(num1) / int(num2)
+        except ZeroDivisionError:
+            raise ValueError
+    else:
+        raise ValueError
+
