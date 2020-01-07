@@ -1,4 +1,5 @@
-import datetime
+from dateutil import rrule
+
 
 def get_missing_dates(dates):
     """Receives a range of dates and returns a sequence
@@ -9,13 +10,11 @@ def get_missing_dates(dates):
 
        See the Bite description and tests for example outputs.
     """
+    dates = set(dates)
     start = min(dates)
     end = max(dates)
 
-    missing = []
-    iteration_day = start
-    while iteration_day < end:
-        if iteration_day not in dates:
-            missing.append(iteration_day)
-        iteration_day += datetime.timedelta(days=1)
-    return missing
+    all_dates = set(dt.date()
+                    for dt in
+                    rrule.rrule(rrule.DAILY, start, until=end))
+    return all_dates - dates
