@@ -1,3 +1,5 @@
+from typing import NamedTuple
+
 data = """Luke Skywalker,172,77
           C-3PO,167,75
           R2-D2,96,32
@@ -24,4 +26,14 @@ data = """Luke Skywalker,172,77
 def person_max_bmi(data=data):
     """Return (name, BMI float) of the character in data that
        has the highest BMI (rounded on 2 decimals)"""
-    pass
+    Person = NamedTuple('Person', name=str, bmi=float)
+
+    def get_person(line):
+        name, height, weight = line.strip().split(',')
+        bmi = float(weight) / ((int(height) / 100) ** 2)
+        return Person(name, bmi)
+
+    persons = [get_person(line) for line in data.strip().splitlines()]
+    fattest = max(persons, key=lambda p: p.bmi)
+
+    return (fattest.name, round(fattest.bmi, 2))
