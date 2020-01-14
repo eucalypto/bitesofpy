@@ -25,4 +25,20 @@ def group_cars_by_manufacturer(cars):
        No return here, just print to the console. We use pytest > capfd to
        validate your output :)
     """
-    pass
+
+    def pick_manufacturer(car_entry):
+        return car_entry[0]
+
+    cars = sorted(cars, key=pick_manufacturer)
+    for manufacturer, models in groupby(cars, pick_manufacturer):
+        print(manufacturer)
+        for model in sorted([entry[1] for entry in models]):
+            print(f'- {model}')
+
+
+def test():
+    group_cars_by_manufacturer(cars)
+
+
+if __name__ == '__main__':
+    test()
