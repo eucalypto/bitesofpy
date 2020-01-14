@@ -31,9 +31,10 @@ def group_cars_by_manufacturer(cars):
 
     cars = sorted(cars, key=pick_manufacturer)
     for manufacturer, models in groupby(cars, pick_manufacturer):
-        print(manufacturer)
+        print(manufacturer.upper())
         for model in sorted([entry[1] for entry in models]):
             print(f'- {model}')
+        print()
 
 
 def test():
