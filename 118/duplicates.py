@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+
 def get_duplicate_indices(words):
     """Given a list of words, loop through the words and check for each
        word if it occurs more than once.
@@ -7,4 +10,10 @@ def get_duplicate_indices(words):
        return [0, 1]:
        ['is', 'it', 'true', 'or', 'is', 'it', 'not?'] => [0, 1]
        Make sure the returning list is unique and sorted in ascending order."""
-    pass
+    word_indices = defaultdict(list)
+    for index, word in enumerate(words):
+        word_indices[word].append(index)
+
+    return sorted([occurrences[0]
+                   for occurrences in word_indices.values()
+                   if len(occurrences) > 1])
