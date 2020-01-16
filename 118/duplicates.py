@@ -17,3 +17,11 @@ def get_duplicate_indices(words):
     return sorted([occurrences[0]
                    for occurrences in word_indices.values()
                    if len(occurrences) > 1])
+
+
+def _get_duplicate_indices(words):
+    """
+    This is the official solution. It is shorter and is slightly different.
+    """
+    duplicate_words = {word for word in words if words.count(word) > 1}
+    return sorted([words.index(word) for word in duplicate_words])
