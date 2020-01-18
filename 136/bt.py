@@ -45,7 +45,24 @@ def check_bt(donor, recipient):
         Returns:
         bool: True for compatability, False otherwise.
     """
-    pass
+    donor_bt = bloodtype_from(donor)
+    recipient_bt = bloodtype_from(recipient)
+    return all(marker >= 0 for marker in _particular_antigen_comp(donor_bt.value, recipient_bt.value))
+
+
+def bloodtype_from(input) -> Bloodtype:
+    if type(input) == int:
+        if not 0 <= input <= 7:
+            raise ValueError("Blood type integer out of bounds")
+        return Bloodtype(input)
+    elif type(input) == str:
+        if input not in blood_type_text.keys():
+            raise ValueError("Given Blood type string is unknown")
+        return blood_type_text[input]
+    elif type(input) == Bloodtype:
+        return input
+    else:
+        raise TypeError("Wrong type: only int, str, and Bloodtype allowed")
 
 
 # hint
