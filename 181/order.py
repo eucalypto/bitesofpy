@@ -7,7 +7,8 @@ class OrderedList:
         self._numbers = []
 
     def add(self, num):
-        # you complete
+        right_place = bisect.bisect_left(self._numbers, num)
+        self._numbers.insert(right_place, num)
 
     def __str__(self):
         return ', '.join(str(num) for num in self._numbers)
