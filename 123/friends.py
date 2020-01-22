@@ -13,4 +13,9 @@ def get_friend_with_most_friends(friendships, users=users):
     """Receives the friendships list of user ID pairs,
        parse it to see who has most friends, return a tuple
        of (name_friend_with_most_friends, his_or_her_friends)"""
-    pass
+    friends = defaultdict(set)
+    for id1, id2 in friendships:
+        friends[id1].add(id2)
+        friends[id2].add(id1)
+    most_popular, their_friends = max(friends.items(), key=lambda x: len(x[1]))
+    return users[most_popular], [users[friend] for friend in their_friends]
