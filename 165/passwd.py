@@ -40,4 +40,11 @@ def get_users_for_shell(passwd_output: str = PASSWD_OUTPUT,
     """Match the passwd_output string for users with grep_shell.
        Return a list of users.
     """
-    pass
+    return [line.split(':')[0]
+            for line in passwd_output.strip().splitlines()
+            if grep_shell in line.split(':')[-1].split('/')]
+    # I don't like the line above. In words: it splits the line by ':', takes the
+    # last entry (e.g. /bin/bash) and splits this by '/'.
+    # We can't do a simple string search because if you look for shell 'sh', you
+    # would also get 'bash' entries.
+
