@@ -48,3 +48,12 @@ def get_users_for_shell(passwd_output: str = PASSWD_OUTPUT,
     # We can't do a simple string search because if you look for shell 'sh', you
     # would also get 'bash' entries.
 
+
+if __name__ == '__main__':
+    """
+    Allow this script to be used with current data:
+    `$ cat /etc/passwd | python passwd.py`
+    """
+
+    import sys
+    print(get_users_for_shell(sys.stdin.read()))
