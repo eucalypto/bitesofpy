@@ -16,4 +16,7 @@ Halbard,Davie,CN"""
 
 def group_names_by_country(data: str = data) -> defaultdict:
     countries = defaultdict(list)
-    # you code
+    for line in data.splitlines()[1:]:
+        last, first, country = line.split(',')
+        countries[country].append(first + ' ' + last)
+    return countries
