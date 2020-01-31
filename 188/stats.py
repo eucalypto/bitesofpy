@@ -30,8 +30,9 @@ Estimated variance for sample:
 def get_all_line_counts(data: str = STATS) -> list:
     """Get all 186 line counts from the STATS file,
        returning a list of ints"""
-    # TODO 1: get the 186 ints from downloaded STATS file
-    pass
+    # get the 186 ints from downloaded STATS file
+    with open(data) as file:
+        return [int(line.split()[0]) for line in file.readlines()]
 
 
 def create_stats_report(data=None):
@@ -44,15 +45,19 @@ def create_stats_report(data=None):
 
     # TODO 2: complete this dict, use data list and
     # for the last 3 sample_ variables, use sample list
-    stats = dict(count=None,
-                 min_=None,
-                 max_=None,
-                 mean=None,
-                 pstdev=None,
-                 pvariance=None,
-                 sample_count=None,
-                 sample_stdev=None,
-                 sample_variance=None,
+    stats = dict(count=len(data),
+                 min_=min(data),
+                 max_=max(data),
+                 mean=statistics.mean(data),
+                 pstdev=statistics.pstdev(data),
+                 pvariance=statistics.pvariance(data),
+                 sample_count=len(sample),
+                 sample_stdev=statistics.stdev(sample),
+                 sample_variance=statistics.variance(sample),
                  )
 
     return STATS_OUTPUT.format(**stats)
+
+
+if __name__ == '__main__':
+    get_all_line_counts()
