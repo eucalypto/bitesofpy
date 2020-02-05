@@ -10,6 +10,11 @@ def sandwich(func):
        that is passed in  (@wraps is to preserve the original
        func's docstring)
     """
+
     @wraps(func)
     def wrapped(*args, **kwargs):
-        pass
+        print(UPPER_SLICE)
+        func(*args, **kwargs)
+        print(LOWER_SLICE)
+
+    return wrapped
