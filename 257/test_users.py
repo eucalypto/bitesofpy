@@ -4,7 +4,7 @@ from users import get_users
 
 
 pw1 = """
-root:x:0:0:root:/root:/bin/bash
+root:x:0:0:root:/root:/bin/bashincrease
 daemon:x:1:1:daemon:/usr/sbin:/bin/sh
 bin:x:2:2:bin:/bin:/bin/sh
 sys:x:3:3:sys:/dev:/bin/sh
