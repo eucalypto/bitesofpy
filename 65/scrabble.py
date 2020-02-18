@@ -27,6 +27,14 @@ def get_possible_dict_words(draw):
     return checked
 
 
+def official_get_possible_dict_words(draw):
+    """This is the official solution which uses the '&' operator to find
+       the overlap of sets"""
+    permutations = (''.join(permutation).lower()
+                    for permutation in _get_permutations_draw(draw))
+    return set(permutations) & set(dictionary)
+
+
 def _get_permutations_draw(draw):
     """Helper to get all permutations of a draw (list of letters), hint:
        use itertools.permutations (order of letters matters)"""
