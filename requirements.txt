@@ -17,7 +17,7 @@ Jinja2==2.11.3
 MarkupSafe==1.1.1
 more-itertools==7.2.0
 MutPy==0.6.1
-numpy==1.17.3
+numpy==1.22.0
 packaging==19.2
 parso==0.5.1
 pexpect==4.7.0
